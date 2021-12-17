@@ -1938,6 +1938,59 @@ public class AwesomeTest {
     </td>
   </tr>
   <tr>
+<<<<<<< log4j-2.12
+=======
+    <td><a name="enableJndiContextSelector"/>log4j2.enableJndiContextSelector</td>
+    <td>LOG4J_ENABLE_JNDI_CONTEXT_SELECTOR</td>
+    <td>false</td>
+    <td>
+      When true, the Log4j context selector that uses the JNDI java protocol is enabled. When false, the default, they are disabled.
+    </td>
+  </tr>
+  <tr>
+    <td><a name="enableJndiJms"/>log4j2.enableJndiJms</td>
+    <td>LOG4J_ENABLE_JNDI_JMS</td>
+    <td>false</td>
+    <td>
+      When true, the Log4j JMS Appender that uses JNDI's java protocol is enabled. When false, the default, they are disabled.
+    </td>
+  </tr>
+  <tr>
+    <td><a name="enableJndiLookup"/>log4j2.enableJndiLookup</td>
+    <td>LOG4J_ENABLE_JNDI_LOOKUP</td>
+    <td>false</td>
+    <td>
+      When true, the Log4j lookup that uses JNDI's java protocol is enabled. When false, the default, they are disabled.
+    </td>
+  </tr>
+  <tr>
+    <td><a name="allowedLdapClasses"/>log4j2.allowedLdapClasses</td>
+    <td>LOG4J_ALLOWED_LDAP_CLASSES</td>
+    <td>&nbsp;</td>
+    <td>
+      System property that specifies fully qualified class names that may be accessed by LDAP. The classes
+      must implement Serializable. By default only Java primitive classes are allowed.
+    </td>
+  </tr>
+  <tr>
+    <td><a name="allowedLdapHosts"/>log4j2.allowedLdapHosts</td>
+    <td>LOG4J_ALLOWED_LDAP_HOSTS</td>
+    <td>&nbsp;</td>
+    <td>
+      System property that adds host names or ip addresses that may be access by LDAP. By default it only allows
+      the local host names and ip addresses.
+    </td>
+  </tr>
+  <tr>
+    <td><a name="allowedJndiProtocols"/>log4j2.allowedJndiProtocols</td>
+    <td>LOG4J_ALLOWED_JNDI_PROTOCOLS</td>
+    <td>&nbsp;</td>
+    <td>
+      System property that adds protocol names that JNDI will allow. By default it only allows java, ldap, and ldaps.
+    </td>
+  </tr>
+  <tr>
+>>>>>>> 4a4b753 [LOG4J2-3242] Rename JNDI enablement property from 'log4j2.enableJndi' to 'log4j2.enableJndiLookup', 'log4j2.enableJndiJms', and 'log4j2.enableJndiContextSelector'.
     <td><a name="uuidSequence"/>log4j2.uuidSequence
       <br />
       (<a name="org.apache.logging.log4j.uuidSequence"/>org.apache.logging.log4j.uuidSequence)

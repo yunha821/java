@@ -29,9 +29,702 @@
          - "update" - Change
          - "remove" - Removed
     -->
+<<<<<<< log4j-2.12
     <release version="2.12.3" date="2021-12-dd" description="GA Release 2.12.3">
       <action issue="LOG4J2-3230" dev="ckozak" type="fix">
         Fix string substitution recursion.
+=======
+    <release version="2.17.0" date="2021-MM-dd" description="GA Release 2.17.0">
+      <action issue="LOG4J2-3242" dev="rgoers, ggregory" type="fix">
+        Limit JNDI to the java protocol only. JNDI will remain disabled by default. Rename JNDI enablement property from
+        'log4j2.enableJndi' to 'log4j2.enableJndiLookup', 'log4j2.enableJndiJms', and 'log4j2.enableJndiContextSelector'.
+      </action>
+      <action issue="LOG4J2-3241" dev="rgoers" type="fix">
+        Do not declare log4j-api-java9 and log4j-core-java9 as dependencies as it causes problems with the
+        Maven enforcer plugin.
+      </action>
+      <action issue="LOG4J2-3247" dev="ggregory" type="fix">
+        PropertiesConfiguration.parseAppenderFilters NPE when parsing properties file filters.
+      </action>
+      <action issue="LOG4J2-3249" dev="ggregory" type="fix">
+        Log4j 1.2 bridge for Syslog Appender defaults to port 512 instead of 514.
+      </action>
+      <action issue="LOG4J2-3237" dev="ggregory" type="fix">
+        Log4j 1.2 bridge API hard codes the Syslog protocol to TCP.
+      </action>
+    </release>
+    <release version="2.16.0" date="2021-12-13" description="GA Release 2.16.0">
+      <action issue="LOG4J2-3208" dev="rgoers" type="fix">
+        Disable JNDI by default. Require log4j2.enableJndi to be set to true to allow JNDI.
+      </action>
+      <action issue="LOG4J2-3211" dev="rgoers" type="fix">
+        Completely remove support for Message Lookups.
+      </action>
+    </release>
+    <release version="2.15.0" date="2021-12-06" description="GA Release 2.15.0">
+      <!-- ADDS -->
+      <action issue="LOG4J2-3198" dev="ckozak" type="add">
+        Pattern layout no longer enables lookups within message text by default for cleaner API boundaries and reduced
+        formatting overhead. The old 'log4j2.formatMsgNoLookups' which enabled this behavior has been removed as well
+        as the 'nolookups' message pattern converter option. The old behavior can be enabled on a per-pattern basis
+        using '%m{lookups}'.
+      </action>
+      <action issue="LOG4J2-3194" dev="rgoers" type="add" due-to="markuss">
+        Allow fractional attributes for size attribute of SizeBsaedTriggeringPolicy.
+      </action>
+      <action issue="LOG4J2-2978" dev="rgoers" type="add" due-to="Michael Seele">
+        Add support for Jakarta EE 9 (Tomcat 10 / Jetty 11)
+      </action>
+      <action issue="LOG4J2-3189" dev="ckozak" type="add">
+        Improve NameAbbreviator worst-case performance.
+      </action>
+      <action issue="LOG4J2-3170" dev="vy" type="add" due-to="Gareth Smith">
+        Make CRLF/HTML encoding run in O(n) worst-case time, rather than O(n^2).
+      </action>
+      <action issue="LOG4J2-3133" dev="ckozak" type="add">
+        Add missing slf4j-api singleton accessors to log4j-slf4j-impl (1.7) StaticMarkerBinder and StaticMDCBinder.
+        This doesn't impact behavior or correctness, but avoids throwing and catching NoSuchMethodErrors when slf4j
+        is initialized and avoids linkage linting warnings.
+      </action>
+      <action issue="LOG4J2-2885" dev="vy" type="add" due-to="Markus Spann">
+        Add support for US-style date patterns and micro/nano seconds to FixedDateTime.
+      </action>
+      <action issue="LOG4J2-3116" dev="rgupta" type="add">
+        Add JsonTemplateLayout for Google Cloud Platform structured logging layout.
+      </action>
+      <action issue="LOG4J2-3067" dev="vy" type="add">
+        Add CounterResolver to JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-3074" dev="vy" type="add">
+        Add replacement parameter to ReadOnlyStringMapResolver.
+      </action>
+      <action issue="LOG4J2-3051" dev="vy" type="add">
+        Add CaseConverterResolver to JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-3064" dev="rgoers" type="add">
+        Add Arbiters and SpringProfile plugin.
+      </action>
+      <action issue="LOG4J2-3056" dev="vy" type="add" due-to="Marcono1234">
+        Refactor MD5 usage for sharing sensitive information.
+      </action>
+      <action issue="LOG4J2-3004" dev="vy" type="add">
+        Add plugin support to JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-3050" dev="rgoers" type="add">
+        Allow AdditionalFields to be ignored if their value is null or a zero-length String.
+      </action>
+      <action issue="LOG4J2-3049" dev="rgoers" type="add">
+        Allow MapMessage and ThreadContext attributes to be prefixed.
+      </action>
+      <action issue="LOG4J2=3048" dev="rgoers" type="add">
+        Add improved MapMessge support to GelfLayout.
+      </action>
+      <action issue="LOG4J2-3044" dev="rgoers" type="add">
+        Add RepeatPatternConverter.
+      </action>
+      <action issue="LOG4J2-2940" dev="ckozak" type="add">
+        Context selectors are aware of their dependence upon the callers ClassLoader, allowing
+        basic context selectors to avoid the unnecessary overhead of walking the stack to
+        determine the caller's ClassLoader.
+      </action>
+      <action issue="LOG4J2-2940" dev="ckozak" type="add">
+        Add BasicAsyncLoggerContextSelector equivalent to AsyncLoggerContextSelector for
+        applications with a single LoggerContext. This selector avoids classloader lookup
+        overhead incurred by the existing AsyncLoggerContextSelector.
+      </action>
+      <action issue="LOG4J2-3041" dev="rgoers" type="add">
+        Allow a PatternSelector to be specified on GelfLayout.
+      </action>
+      <action issue="LOG4J2-3141" dev="ckozak" type="add">
+        Avoid ThreadLocal overhead in RandomAccessFileAppender, RollingRandomAccessFileManager,
+        and MemoryMappedFileManager due to the unused setEndOfBatch and isEndOfBatch methods.
+        The methods on LogEvent are preferred.
+      </action>
+      <action issue="LOG4J2-3144" dev="ckozak" type="add">
+        Prefer string.getBytes(Charset) over string.getBytes(String)
+	based on performance improvements in modern Java releases.
+      </action>
+      <action issue="LOG4J2-3171" dev="ckozak" type="add">
+        Improve PatternLayout performance by reducing unnecessary indirection and branching.
+      </action>
+      <!-- FIXES -->
+      <action issue="LOG4J2-3166" dev="rgoers">
+        Fix Log Event Level vs Logger Config Level table.
+      </action>
+      <action issue="LOG4J2-2540" dev="rgoers">
+        Minor documentation correctsion regarding log levels.
+      </action>
+      <action issue="LOG4J2-2541" dev="rgoers" due-to="Gerold Broser">
+        Minor documentation corrections in the configuration section.
+      </action>
+      <action issue="LOG4J2-2553" dev="rgoers">
+        Correct documentation for SyslogAppender when using TLS.
+      </action>
+      <action issue="LOG4J2-1798" dev="rgoers" due-to="Viacheslav Zhivaev">
+        Handle interrupted exceptions that occur during rollover.
+      </action>
+      <action issue="LOG4J2-2951" dev="rgoers">
+        Log4j 1.x properties were not being substituted.
+      </action>
+      <action issue="LOG4J2-3201" dev="rgoers" type="fix">
+        Limit the protocols JNDI can use by default. Limit the servers and classes that can be accessed via LDAP.
+      </action>
+      <action issue="LOG4J2-3114" dev="rgoers" type="fix" due-to="Barnabas Bodnar">
+        Enable immediate flush on RollingFileAppender when buffered i/o is not enabled.
+      </action>
+      <action issue="LOG4J2-3168" dev="rgoers" type="fix" due-to="Benjamin Wöster">
+       Fix bug when file names contain regex characters.
+      </action>
+      <action issue="LOG4J2-3110" dev="rgoers" type="fix" due-to="Arturo Bernal">
+        Fix the number of {}-placeholders in the string literal argument does not match the number of other arguments
+        to the logging call.
+      </action>
+      <action issue="LOG4J2-3060" dev="vy" type="fix" due-to=" Nikita Mikhailov">
+        Fix thread-safety issues in DefaultErrorHandler.
+      </action>
+      <action issue="LOG4J2-3185" dev="vy" type="fix" due-to="mzbonnt">
+        Fix thread-safety issues in DefaultErrorHandler.
+      </action>
+      <action issue="LOG4J2-3183" dev="vy" type="fix">
+        Avoid using MutableInstant of the event as a cache key in JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-2829" dev="vy" type="fix">
+        SocketAppender should propagate failures when reconnection fails.
+      </action>
+      <action issue="LOG4J2-3172" dev="vy" type="fix" due-to="Barry Fleming">
+        Buffer immutable log events in the SmtpManager.
+      </action>
+      <action issue="LOG4J2-3175" dev="vy" type="fix" due-to="wuqian0808">
+        Avoid KafkaManager override when topics differ.
+      </action>
+      <action issue="LOG4J2-3160" dev="vy" type="fix" due-to="Lars Bohl">
+        Fix documentation on how to toggle log4j2.debug system property.
+      </action>
+      <action issue="LOG4J2-3159" dev="ckozak" type="fix">
+        Fixed an unlikely race condition in Log4jMarker.getParents() volatile access.
+      </action>
+      <action issue="LOG4J2-3153" dev="ckozak" type="fix">
+        DatePatternConverter performance is not impacted by microsecond-precision clocks when such precision isn't
+        required.
+      </action>
+      <action issue="LOG4J2-2808" dev="ckozak" type="fix" due-to="Asapha Halifa">
+        LoggerContext skips resolving localhost when hostName is configured.
+      </action>
+      <action issue="LOG4J2-3150" dev="ckozak" type="fix">
+        RandomAccessFile appender uses the correct default buffer size of 256 kB
+        rather than the default appender buffer size of 8 kB.
+      </action>
+      <action issue="LOG4J2-3142" dev="ckozak" type="fix" due-to="John Meikle">
+        log4j-1.2-api implements LogEventAdapter.getTimestamp() based on the original event timestamp
+        instead of returning zero.
+      </action>
+      <action issue="LOG4J2-3083" dev="ckozak" type="fix">
+        log4j-slf4j-impl and log4j-slf4j18-impl correctly detect the calling class using both LoggerFactory.getLogger
+        methods as well as LoggerFactory.getILoggerFactory().getLogger.
+      </action>
+      <action issue="LOG4J2-2816" dev="vy" type="fix" due-to="Jacob Shields">
+        Handle Disruptor event translation exceptions.
+      </action>
+      <action issue="LOG4J2-3121" dev="ggregory" type="fix" due-to="Markus Spann">
+          log4j2 config modified at run-time may trigger incomplete MBean re-initialization due to InstanceAlreadyExistsException.
+      </action>
+      <action issue="LOG4J2-3107" dev="vy" type="fix" due-to="Markus Spann">
+        SmtpManager.createManagerName ignores port.
+      </action>
+      <action issue="LOG4J2-3080" dev="vy" type="fix">
+        Use SimpleMessage in Log4j 1 Category whenever possible.
+      </action>
+      <action issue="LOG4J2-3102" dev="ckozak" type="fix">
+        Fix a regression in 2.14.1 which allowed the AsyncAppender background thread to keep the JVM alive because
+        the daemon flag was not set.
+      </action>
+      <action issue="LOG4J2-3103" dev="ckozak" type="fix" due-to="Mike Glazer">
+        Fix race condition which can result in ConcurrentModificationException on context.stop.
+      </action>
+      <action issue="LOG4J2-3092" dev="vy" type="fix" due-to="xmh51">
+        Fix JsonWriter memory leaks due to retained excessive buffer growth.
+      </action>
+      <action issue="LOG4J2-3089" dev="vy" type="fix" due-to="Tim Perry">
+        Fix sporadic JsonTemplateLayoutNullEventDelimiterTest failures on Windows.
+      </action>
+      <action issue="LOG4J2-3075" dev="vy" type="fix">
+        Fix formatting of nanoseconds in JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-3087" dev="vy" type="fix" due-to="Anton Klarén">
+        Fix race in JsonTemplateLayout where a timestamp could end up unquoted.
+      </action>
+      <action issue="LOG4J2-3070" dev="vy" type="fix" due-to="Romain Manni-Bucau">
+        Ensure EncodingPatternConverter#handlesThrowable is implemented.
+      </action>
+      <action issue="LOG4J2-3054" dev="ckozak" type="fix">
+        BasicContextSelector hasContext and shutdown take the default context into account
+      </action>
+      <action issue="LOG4J2-2940" dev="ckozak" type="fix">
+        Slf4j implementations walk the stack at most once rather than twice to determine the caller's class loader.
+      </action>
+      <action issue="LOG4J2-2965" dev="ckozak" type="fix">
+        Fixed a deadlock between the AsyncLoggerContextSelector and java.util.logging.LogManager by updating Disruptor to 3.4.4.
+      </action>
+      <action issue="LOG4J2-3095" dev="ggregory" type="fix" due-to="Kenny MacLeod, Gary Gregory">
+        Category.setLevel should accept null value.
+      </action>
+      <action issue="LOG4J2-3174" dev="vy" type="fix" due-to="romainmoreau">
+        Wrong subject on mail when it depends on the LogEvent
+      </action>
+      <!-- UPDATES -->
+      <action dev="rgoers" issue="" type="update">
+        Update Spring framework to 5.3.13, Spring Boot to 2.5.7, and Spring Cloud to 2020.0.4.
+      </action>
+      <action issue="LOG4J2-2025" dev="rgoers" type="update">
+        Provide support for overriding the Tomcat Log class in Tomcat 8.5+.
+      </action>
+      <action dev="ggregory" issue="" type="update">
+        Updated dependencies.
+
+        - com.fasterxml.jackson.core:jackson-annotations ................. 2.12.2 -> 2.12.4
+        - com.fasterxml.jackson.core:jackson-core ........................ 2.12.2 -> 2.12.4
+        - com.fasterxml.jackson.core:jackson-databind .................... 2.12.2 -> 2.12.4
+        - com.fasterxml.jackson.dataformat:jackson-dataformat-xml ........ 2.12.2 -> 2.12.4
+        - com.fasterxml.jackson.dataformat:jackson-dataformat-yaml ....... 2.12.2 -> 2.12.4
+        - com.fasterxml.jackson.module:jackson-module-jaxb-annotations ... 2.12.2 -> 2.12.4
+        - com.fasterxml.woodstox:woodstox-core ........................... 6.2.4 -> 6.2.6
+        - commons-io:commons-io .......................................... 2.8.0 -> 2.11.0
+        - net.javacrumbs.json-unit:json-unit ............................. 2.24.0 -> 2.25.0
+        - net.javacrumbs.json-unit:json-unit ............................. 2.25.0 -> 2.27.0
+        - org.apache.activemq:activemq-broker ............................ 5.16.1 -> 5.16.2
+        - org.apache.activemq:activemq-broker ............................ 5.16.2 -> 5.16.3
+        - org.apache.commons:commons-compress ............................ 1.20 -> 1.21
+        - org.apache.commons:commons-csv ................................. 1.8 -> 1.9.0
+        - org.apache.commons:commons-dbcp2 ............................... 2.8.0 -> 2.9.0
+        - org.apache.commons:commons-pool2 ............................... 2.9.0 -> 2.11.1
+        - org.apache.maven.plugins:maven-failsafe-plugin ................. 2.22.2 -> 3.0.0-M5
+        - org.apache.maven.plugins:maven-surefire-plugin ................. 2.22.2 -> 3.0.0-M5
+        - org.apache.rat:apache-rat-plugin ............................... 0.12 -> 0.13
+        - org.assertj:assertj-core ....................................... 3.19.0 -> 3.20.2
+        - org.codehaus.groovy:groovy-dateutil ............................ 3.0.7 -> 3.0.8
+        - org.codehaus.groovy:groovy-jsr223 .............................. 3.0.7 -> 3.0.8
+        - org.codehaus.plexus:plexus-utils ............................... 3.3.0 -> 3.4.0
+        - org.eclipse.persistence:javax.persistence ...................... 2.1.1 -> 2.2.1
+        - org.eclipse.persistence:org.eclipse.persistence.jpa ............ 2.6.5 -> 2.6.9
+        - org.eclipse.persistence:org.eclipse.persistence.jpa ............ 2.7.8 -> 2.7.9
+        - org.fusesource.jansi ........................................... 2.3.2 -> 2.3.4
+        - org.fusesource.jansi:jansi ..................................... 2.3.1 -> 2.3.2
+        - org.hsqldb:hsqldb .............................................. 2.5.1 -> 2.5.2
+        - org.junit.jupiter:junit-jupiter-engine ......................... 5.7.1 -> 5.7.2
+        - org.junit.jupiter:junit-jupiter-migrationsupport ............... 5.7.1 -> 5.7.2
+        - org.junit.jupiter:junit-jupiter-params ......................... 5.7.1 -> 5.7.2
+        - org.junit.vintage:junit-vintage-engine ......................... 5.7.1 -> 5.7.2
+        - org.liquibase:liquibase-core ................................... 3.5.3 -> 3.5.5
+        - org.mockito:mockito-core ....................................... 3.8.0 -> 3.11.2
+        - org.mockito:mockito-junit-jupiter .............................. 3.8.0 -> 3.11.2
+        - org.springframework:spring-aop ................................. 5.3.3 -> 5.3.9
+        - org.springframework:spring-beans ............................... 5.3.3 -> 5.3.9
+        - org.springframework:spring-context ............................. 5.3.3 -> 5.3.9
+        - org.springframework:spring-context-support ..................... 5.3.3 -> 5.3.9
+        - org.springframework:spring-core ................................ 5.3.3 -> 5.3.9
+        - org.springframework:spring-expression .......................... 5.3.3 -> 5.3.9
+        - org.springframework:spring-oxm ................................. 5.3.3 -> 5.3.9
+        - org.springframework:spring-test ................................ 5.3.3 -> 5.3.9
+        - org.springframework:spring-web ................................. 5.3.3 -> 5.3.9
+        - org.springframework:spring-webmvc .............................. 5.3.3 -> 5.3.9
+        - org.tukaani:xz ................................................. 1.8 -> 1.9
+      </action>
+    </release>
+    <release version="2.14.1" date="2021-03-06" description="GA Release 2.14.1">
+      <!-- FIXES -->
+      <action issue="LOG4J2-3033" dev="rgoers" type="fix">
+        Add log method with no parameters - i.e. it has an empty message.
+      </action>
+      <action issue="LOG4J2-2947" dev="rgoers" type="fix">
+        Document that LogBuilder default methods do nothing.
+      </action>
+      <action issue="LOG4J2-2948" dev="vy" type="fix">
+        Replace HashSet with IdentityHashMap in ParameterFormatter to detect cycles.
+      </action>
+      <action issue="LOG4J2-3028" dev="ckozak" type="fix" due-to="Jakub Kozlowski">
+        OutputStreamManager.flushBuffer always resets the buffer, previously the buffer was not reset after an exception.
+      </action>
+      <action issue="LOG4J2-2981" dev="rgoers" type="fix">
+        OnStartupTriggeringPolicy would fail to cause the file to roll over with DirectWriteTriggeringPolicy
+        unless minSize was set to 0.
+      </action>
+      <action issue="LOG4J2-2990" dev="rgoers" type="fix" due-to="Diogo Monteiro">
+        Reduce garbage by using putAll when copying the ThreadContext for SLF4J.
+      </action>
+      <action issue="LOG4J2-3006" dev="rgoers" type="fix">
+        Directly create a thread instead of using the common ForkJoin pool when initializing ThreadContextDataInjector"
+      </action>
+      <action issue="LOG4J2-2624" dev="mattsicker" type="fix" due-to="Tim Perry">
+        Allow auto-shutdown of log4j in log4j-web to be turned off and provide a
+        ServletContextListener "Log4jShutdownOnContextDestroyedListener" to stop log4j.
+        Register the listener at the top of web.xml to ensure the shutdown happens last.
+      </action>
+      <action issue="LOG4J2-1606" dev="mattsicker" type="fix" due-to="Tim Perry">
+        Allow auto-shutdown of log4j in log4j-web to be turned off and provide a
+        ServletContextListener "Log4jShutdownOnContextDestroyedListener" to stop log4j.
+        Register the listener at the top of web.xml to ensure the shutdown happens last.
+      </action>
+      <action issue="LOG4J2-2998" dev="vy" type="fix">
+        Fix truncation of excessive strings ending with a high surrogate in JsonWriter.
+      </action>
+      <action issue="LOG4J2-2977" dev="vy" due-to="Ron Grabowski">
+        Replace outdated PatternLayout.createLayout() calls in docs with createDefaultLayout().
+      </action>
+      <action issue="LOG4J2-2973" dev="vy" type="fix" due-to="Fabio Ricchiuti">
+        Rename EventTemplateAdditionalField#type (conflicting with properties file parser) to "format".
+      </action>
+      <action issue="LOG4J2-2972" dev="vy" type="fix">
+        Refactor AsyncAppender and AppenderControl for handling of Throwables.
+      </action>
+      <action issue="LOG4J2-2985" dev="vy" type="fix">
+        Add eventTemplateRootObjectKey parameter to JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-2974" dev="rgoers" type="fix">
+        Log4j would fail to initialize in Java 8 with log4j-spring-boot.
+      </action>
+      <action issue="LOG4J2-2964" dev="vy" type="fix" due-to="Valery Yatsynovich">
+        Merge packages from several Configurations in Composite Configuration.
+      </action>
+      <action issue="LOG4J2-2961" dev="vy" type="fix">
+        Fix reading of JsonTemplateLayout event additional fields from config.
+      </action>
+      <action issue="LOG4J2-2916" dev="vy" type="fix" due-to="wuqian0808">
+        Avoid redundant Kafka producer instantiation causing thread leaks.
+      </action>
+      <action issue="LOG4J2-2967" dev="ckozak" type="fix">
+        Fix JsonTemplateLayout index based parameter resolution when messages contain too few parameters.
+      </action>
+      <action issue="LOG4J2-2976" dev="ckozak" type="fix">
+        JdbcAppender composes an incorrect INSERT statement without a ColumnMapping element.
+      </action>
+      <action issue="LOG4J2-3014" dev="ggregory" type="fix" due-to="Lee Breisacher, Gary Gregory">
+        Log4j1ConfigurationConverter on Windows produces "&#xd;" at end of every line.
+      </action>
+      <action issue="LOG4J2-3131" dev="ggregory" type="fix" due-to="Adam Long, Gary Gregory">
+        Attempting to call getExtendedStackTraceAsString() after deserializing JSON LogEvent results in a NPE.
+      </action>
+      <action issue="LOG4J2-3131" dev="ggregory" type="fix" due-to="Gary Gregory">
+        NoGcLayout allocates empty bytes arrays for its header and footer.
+      </action>
+      <!-- ADDS -->
+      <action issue="LOG4J2-2962" dev="vy" type="add">
+        Enrich "map" resolver by unifying its backend with "mdc" resolver.
+      </action>
+      <action issue="LOG4J2-2999" dev="vy" type="add">
+        Replace JsonTemplateLayout resolver configurations table in docs with sections.
+      </action>
+      <action issue="LOG4J2-2993" dev="vy" type="add">
+        Support stack trace truncation in JsonTemplateLayout.
+      </action>
+      <!-- UPDATES -->
+      <action issue="LOG4J2-2923" dev="rgoers" type="update">
+        Add Rollover Listener to aid in unit test validation.
+      </action>
+      <action issue="LOG4J2-2893" dev="rgoers" type="update">
+        Allow reconfiguration when Log4j 1 configuration files are updated.
+      </action>
+      <action dev="rgoers" type="update">
+        Update Spring dependencies to 5.3.2, Spring Boot to 2.3.6, and Spring Cloud to Hoxton.SR9
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.fusesource.jansi:jansi 1.17.1 -> 2.0.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update commons-codec:commons-codec 1.14 -> 1.15.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-lang3 3.10 -> 3.11.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-pool2 2.8.1 -> 2.9.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-dbcp2 2.4.0 -> 2.8.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update commons-io:commons-io 2.7 -> 2.8.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.codehaus.groovy:* 3.0.5 -> 3.0.6.
+      </action>
+      <action dev="ggregory" type="update">
+        Update com.fasterxml.jackson.*:* 2.11.2 - 2.11.3.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.springframework:* 5.2.8.RELEASE -> 5.3.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update junit:junit 4.13 -> 4.13.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.xmlunit:* 2.7.0 -> 2.8.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.assertj:assertj-core 3.14.0 -> 3.18.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.awaitility:awaitility 4.0.2 -> 4.0.3.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.codehaus.plexus:plexus-utils 3.2.0 -> 3.3.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update MongoDB 3 plugin: org.mongodb:mongodb-driver 3.12.6 -> 3.12.7.
+      </action>
+      <action dev="ggregory" type="update">
+        Update MongoDB 4 plugin: org.mongodb:* 4.1.0 -> 4.1.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.eclipse.tycho:org.eclipse.osgi 3.12.1.v20170821-1548 -> 3.13.0.v20180226-1711.
+      </action>
+      <action dev="ggregory" type="update">
+        Update de.flapdoodle.embed:de.flapdoodle.embed.mongo 2.2.0 -> 3.0.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update net.javacrumbs.json-unit:json-unit 1.31.1 -> 2.22.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update Mockito 3.6.0 -> 3.7.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update XML Unit 2.8.0 -> 2.8.2.
+      </action>
+      <action dev="ggregory" type="update">
+        Update JSON Unit 2.21.0 -> 2.22.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update JaCoCo 0.8.3 -> 0.8.6.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.activemq:* 5.16.0 -> 5.16.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.mockito:mockito-* 3.7.0 -> 3.7.7.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.springframework:* 5.3.2 -> 5.3.3.
+      </action>
+      <action dev="ggregory" type="update">
+        Update mongodb4.version 4.1.1 -> 4.2.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.fusesource.jansi:jansi 1.18 -> 2.2.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.assertj:assertj-core 3.18.1 -> 3.19.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update net.javacrumbs.json-unit:json-unit 2.22.0 -> 2.23.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update Woodstox 5.0.3 -> 6.2.3 to match Jackson 2.12.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.activemq:* 5.16.0 -> 5.16.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.mockito:mockito-* 3.7.0 -> 3.7.7.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.springframework:* 5.3.2 -> 5.3.3.
+      </action>
+      <action dev="ggregory" type="update">
+        Update mongodb4.version 4.1.1 -> 4.2.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.fusesource.jansi:jansi 1.18 -> 2.3.1.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.assertj:assertj-core 3.18.1 -> 3.19.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update net.javacrumbs.json-unit:json-unit 2.22.0 -> 2.23.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update net.javacrumbs.json-unit:json-unit 2.22.0 -> 2.23.0.
+      </action>
+      <action dev="ggregory" type="update">
+        - com.fasterxml.jackson.core:jackson-annotations ................. 2.12.1 -> 2.12.2
+        - com.fasterxml.jackson.core:jackson-core ........................ 2.12.1 -> 2.12.2
+        - com.fasterxml.jackson.core:jackson-databind .................... 2.12.1 -> 2.12.2
+        - com.fasterxml.jackson.dataformat:jackson-dataformat-xml ........ 2.12.1 -> 2.12.2
+        - com.fasterxml.jackson.dataformat:jackson-dataformat-yaml ....... 2.12.1 -> 2.12.2
+        - com.fasterxml.jackson.module:jackson-module-jaxb-annotations ... 2.12.1 -> 2.12.2
+        - org.apache.commons:commons-lang3 ............................... 3.11   -> 3.12.0
+        - org.junit.jupiter:junit-jupiter-engine ......................... 5.7.0  -> 5.7.1
+        - org.junit.jupiter:junit-jupiter-migrationsupport ............... 5.7.0  -> 5.7.1
+        - org.junit.jupiter:junit-jupiter-params ......................... 5.7.0  -> 5.7.1
+        - org.junit.vintage:junit-vintage-engine ......................... 5.7.0  -> 5.7.1
+        - org.mockito:mockito-core ....................................... 3.7.7  -> 3.8.0
+        - org.mockito:mockito-junit-jupiter .............................. 3.7.7  -> 3.8.0
+        - org.mongodb:bson ............................................... 4.2.0  -> 4.2.2
+        - org.mongodb:mongodb-driver-sync ................................ 4.2.0  -> 4.2.2
+      </action>
+    </release>
+    <release version="2.14.0" date="2020-11-06" description="GA Release 2.14.0">
+      <action issue="LOG4J2-2925" dev="rgoers" type="fix">
+        Fix broken link in FAQ.
+      </action>
+      <action issue="LOG4J2-2957" dev="vy" type="add">
+        Add JsonTemplateLayout.
+      </action>
+      <action issue="LOG4J2-2911" dev="rgoers" type="fix">
+        Log4j2EventListener in spring.cloud.config.client listens for wrong event.
+      </action>
+      <action issue="LOG4J2-2889" dev="mattsicker" type="update" due-to="Geng Yuanzhe">
+        Add date pattern support for HTML layout.
+      </action>
+      <action issue="LOG4J2-2919" dev="mattsicker" type="fix" due-to="Geng Yuanzhe">
+        Call ReliabilityStrategy's beforeStopAppenders() method before stopping AsyncAppender.
+      </action>
+      <action issue="LOG4J2-2892" dev="rgoers" type="update" due-to="Jakub Lukes">
+        Allow GelfLayout to produce newline delimited events.
+      </action>
+      <action issue="LOG4J2-2906" dev="rgoers" type="fix" due-to="Stephen Joyner">
+        Fix UnsupportedOperationException when initializing the Log4j2CloudConfigLoggingSystem.
+      </action>
+      <action issue="LOG4J2-2908" dev="rgoers" type="fix">
+        Move Spring Lookup and Spring PropertySource to its own module.
+      </action>
+      <action issue="LOG4J2-2910" dev="rgoers" type="fix">
+        Log4j-web should now stores the servlet context as a map entry instead of in the single external context field.
+      </action>
+      <action issue="LOG4J2-2822" dev="rgoers" type="fix">
+        Javadoc link in ThreadContext description was incorrect.
+      </action>
+      <action issue="LOG4J2-2894" dev="rgoers" type="fix">
+        Fix spelling error in log message.
+      </action>
+      <action issue="LOG4J2-2901" dev="rgoers" type="fix">
+        Missing configuration files should be ignored when creating a composite configuration.
+      </action>
+      <action issue="LOG4J2-2883" dev="rgoers" type="fix">
+        When using DirectFileRolloverStrategy the file pattern was not being recalculated on
+        size based rollover after a time based rollover had occurred.
+      </action>
+      <action issue="LOG4J2-2875" dev="rgoers" type="fix">
+        Rollover was failing to create directories when using a DirectFileeRolloverStrategy.
+      </action>
+      <action issue="LOG4J2-2859" dev="rgoers" type="fix" due-to="Yanming Zhou">
+        Fixed typos where mergeFactory should be mergeStrategy.
+      </action>
+      <action issue="LOG4J2-2832" dev="rgoers" type="fix" due-to="Benjamin Asbach">
+        Correct class name printed in error message in RollingFileAppender.
+      </action>
+      <action issue="LOG4J2-2882" dev="rgoers" type="fix" due-to="Emmanuel Bourg">
+        Support java.util.logging filters when using that API.
+      </action>
+      <action issue="LOG4J2-2880" dev="rgoers" type="fix">
+        Create StackWalker benchmark. Revert back to StackWalker.walk based on benchmark results.
+      </action>
+      <action issue="LOG4J2-2867" dev="rgoers" type="fix">
+        Obtain ContextDataProviders asynchronously.
+      </action>
+      <action issue="LOG4J2-2877" dev="rgoers" type="fix">
+        Determine the container id to obtain container and image information.
+      </action>
+      <action issue="LOG4J2-2844" dev="ggregory" type="fix">
+        Null pointer exception when no network interfaces are available.
+      </action>
+      <action issue="LOG4J2-2848" dev="ggregory" type="add">
+        Create module log4j-mongodb4 to use new major version 4 MongoDB driver.
+      </action>
+      <action issue="LOG4J2-2851" dev="ggregory" type="remove">
+        Drop log4j-mongodb2 module.
+      </action>
+      <action dev="ggregory" type="update">
+        Update MongoDB tests to require Java 8 unconditionally now that Log4j requires Java 8.
+      </action>
+      <action dev="ggregory" type="update">
+		Update mongodb3.version from 3.12.1 to 3.12.6.
+      </action>
+      <action dev="ggregory" type="update">
+        Update com.fasterxml.jackson.* 2.10.2 -> 2.11.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.activemq:activemq-broker 5.15.11 -> 5.16.0.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-compress 1.19 -> 1.20.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-csv 1.7 -> 1.8.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.apache.commons:commons-lang3 3.9 -> 3.10.
+      </action>
+      <action dev="ggregory" type="update">
+        Update org.codehaus.groovy:* 2.5.6 -> 3.0.5.
+      </action>
+      <action dev="ggregory" type="update">
+        Update tests junit:junit 4.12 -> 4.13.
+      </action>
+      <action dev="ggregory" type="update">
+        Update tests commons-io:commons-io 2.6 -> 2.7.
+      </action>
+      <action dev="ggregory" type="update">
+        Update jackson 2.11.0 -> 2.11.2.
+      </action>
+      <action dev="ggregory" type="update">
+        Update tests hsqldb 2.5.0 -> 2.5.1.
+      </action>
+      <action issue="LOG4J2-2895" dev="ckozak" type="fix">
+        Fix potential deadlock in asynchronous logging by avoiding blocking for queue space on Log4jThreads
+      </action>
+      <action issue="LOG4J2-2837" dev="ckozak" type="fix">
+        Disruptor and JUL no longer recursively start the AsyncLoggerDisruptor
+        resulting in an extra disruptor background thread constantly waiting.
+      </action>
+      <action issue="LOG4J2-2867" dev="ckozak" type="fix">
+        RingBufferLogEventTranslator uses a static ContextDataInjector instead of initializing a new object
+        on each thread.
+      </action>
+      <action issue="LOG4J2-2858" dev="ckozak" type="add" due-to="Stepan Gorban">
+        More flexible configuration of the Disruptor WaitStrategy.
+      </action>
+      <action issue="LOG4J2-2898" dev="ckozak" type="fix" due-to="Turbanov Andrey">
+        Avoid initializing volatile fields with default values.
+      </action>
+      <action issue="LOG4J2-2899" dev="ckozak" type="fix">
+        Fix log4j-1.2-api LogEventWrapper threadId and priority accessors when called multiple times.
+      </action>
+      <action issue="LOG4J2-2939" dev="ckozak" type="fix" due-to="Constantin Hirsch">
+        Fix NPE in MDCContextMap on 'contains' and 'isEmpty' invocations.
+      </action>
+      <action issue="LOG4J2-2954" dev="ckozak" type="fix" due-to="Henry Tung">
+        Prevent premature garbage collection of shutdown hooks in DefaultShutdownCallbackRegistry.
+      </action>
+    </release>
+    <release version="2.13.3" date="2020-05-10" description="GA Release 2.13.3">
+      <action issue="LOG4J2-2838" dev="rgoers" type="fix">
+        Fix NullPointerException in ThreadContextDataInjector.
+      </action>
+    </release>
+    <release version="2.13.2" date="2020-04-23" description="GA Release 2.13.2">
+      <action issue="LOG4J2-2824" dev="rgoers" type="fix" due-to="CrazyBills">
+        Implement requiresLocation in GelfLayout to reflect whether location information is used in the message Pattern.
+      </action>
+      <action issue="LOG4J2-2588" dev="rgoers" type="fix">
+        Add option to restore printing timeMillis in the JsonLayout.
+      </action>
+      <action issue="LOG4J2-2766" dev="rgoers" type="fix">
+        Initialize pattern processor before triggering policy during reconfiguration.
+      </action>
+      <action issue="LOG4J2-2457" dev="rgoers" type="update">
+        Allow the file extension in the file pattern to be modified during reconfiguration.
+      </action>
+      <action issue="LOG4J2-2810" dev="rgoers" type="fix">
+        Add information about using a url in log4j.configurationFile.
+      </action>
+      <action issue="LOG4J2-2813" dev="rgoers" type="fix" due-to="Keith D Gregory">
+        serializeToBytes was checking wrong variable for null.
+      </action>
+      <action issue="LOG4J2-2814" dev="rgoers" type="fix">
+        Fix Javadoc for ScriptPatternSelector.
+      </action>
+      <action issue="LOG4J2-2793" dev="rgoers" type="fix" due-to="Renukaprasad C">
+        Allow trailing and leading spaces in log level.
+>>>>>>> 4a4b753 [LOG4J2-3242] Rename JNDI enablement property from 'log4j2.enableJndi' to 'log4j2.enableJndiLookup', 'log4j2.enableJndiJms', and 'log4j2.enableJndiContextSelector'.
       </action>
       <action issue="LOG4J2-2819" dev="mattsicker" type="update">
         Add support for specifying an SSL configuration for SmtpAppender.
